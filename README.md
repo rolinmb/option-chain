@@ -56,7 +56,7 @@ Uses matplotlib.pyplot to create surface visualizations of the OptionChain objec
 buildChainSurfaceLists(): returns two lists (Call and Put surfaces), where each list contains the same number of sublists (length = number of expration dates on the Option Chain) representing data for each expiration date for the individual Call or Put surface. Each surface sublist (representing a unique time to expiration) contains 3 sub-sublists;
 
 - Call or Put list
-    - list of unique Times to Expiration (equivalently the unique Expriation Dates) for that OptionChain
+    - List of unique Times to Expiration (equivalently the unique Expriation Dates) for that OptionChain
         - X list = Time to Expiration date (the unique time to expiration, constant values)
         - Y list = Strike Price of unique Expiration date (all strike prices of the specific time to expiration)
         - Z list = Caluclation for Call or Put Option at X,Y (calculated values for all strikes specific to that unique time to expiration)
@@ -79,15 +79,15 @@ buildChainSurfacePlots2(): Calls quad_mesh_plot_3d(), buildChainSurfaceLists() a
 
 <- test.py ->
 
-Tests for all combinations of constructor parameters of OptionChain objects. Also tests av.py fetch methods and simple 2-plot OptionChain surface visualization for default IV calculated surface. 
+Tests for all combinations of constructor parameters of OptionChain objects. Also tests av.py fetch methods and simple 2-plot OptionChain surface visualization for default IV calculated surface.
 
 <- senti.py ->
 
-Scrapes headlines from a set of tickers and applies sentiment scores to each headline in order to come up with a daily average sentiment score. Creates a plot of historical average daily sentiment scores w/ moving averages (finmath.py) using matplotlib.
+Scrapes headlines from a set of tickers and applies sentiment scores (via ntlk) to each headline in order to come up with a daily average sentiment score. Creates a plot of historical average daily sentiment scores w/ moving averages (finmath.py) using matplotlib.
 
 <- senti_config.py ->
 
-List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a list of vader sentiment scores for analyzing the tone of headlines.
+List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a list of ntlk vader sentiment scores for analyzing the tone of headlines.
 
 <- main.py ->
 
