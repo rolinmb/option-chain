@@ -11,7 +11,7 @@ NOTE: This program expects the following folders to exist in the same directory 
 
 3 classes to define an OptionChain, the individual Option objects, as well as a ChainExpiration objects.
 
-The OptionChain can be considered as a .csv file; a pandas DataFrame, a list of | ChainExpirations |, and/or two lists, | | Calls |, | Puts | |
+The OptionChain can be considered as a .csv file; a pandas DataFrame, a list of | ChainExpirations | , and/or two lists, | | Calls | , | Puts | |
 
 You can build an OptionChain instance from a .csv file (will handle if the file you entered doesn't exist or isn't readable), or you can build an OptionChain w/o the .csv name parameter (will output to a default directory /csv_outputs/chains); which it will then fetch the HTML, parse and then create a .csv file alongside an object instance.
 
