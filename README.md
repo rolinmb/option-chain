@@ -1,12 +1,21 @@
+NOTE: This program expects the following folders to exist in the same directory as main.py:
+- /csv_outputs
+    - chains
+    - ohlc
+    - senti
+- /png_outputs
+    - chains
+
+
 <- finoptions.py -> 
 
 3 classes to define an OptionChain, the individual Option objects, as well as a ChainExpiration objects.
 
 The OptionChain can be considered as a .csv file; a pandas DataFrame, a list of | ChainExpirations |, and/or two lists, | | Calls |, | Puts | |
 
-You can build an OptionChain instance from a .csv file (will handle if the file you entered doesn't exist or isn't readable), or you can build an OptionChain w/o the .csv name parameter (will output to a default directory |your dir|/csv_outputs/chains); which it will then fetch the HTML, parse and then create a .csv file alongside an object instance.
+You can build an OptionChain instance from a .csv file (will handle if the file you entered doesn't exist or isn't readable), or you can build an OptionChain w/o the .csv name parameter (will output to a default directory /csv_outputs/chains); which it will then fetch the HTML, parse and then create a .csv file alongside an object instance.
 
-In the process of fetching the OptionChain HTML to scrape/parse, the program also fetches OHLC Time Series data from the AlphaVantage API in order to calculate Historical Volitility of the underlying asset. You may also pass in a .csv file of the OHLC Time Series.
+In the process of fetching the OptionChain HTML to scrape/parse, the program also fetches OHLC Time Series data from the AlphaVantage API in order to calculate Historical Volitility of the underlying asset. You may also pass in a .csv file of the OHLC Time Series; if not provided, then the AlphaVantage API is called and a .csv is saved to default in the directory /csv_outputs/ohlc.
 
 If you are building an OptionChain from scratch; the program first checks if the ticker has Time Series data available to fetch, then will attempt to fetch the Option Chain HTML and parse to insure the ticker entered is optionable (has an option chain available).
 
@@ -83,11 +92,3 @@ List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a l
 <- main.py ->
 
 Routine to create .png files for various calculated surfaces for a specific ticker/set of tickers. Can comment/uncomment code to pass a single ticker via command line argument. Mainly just used as a script to collect OptionChain data, Time Series data and .png files for all calculated surfaces for any optionable ticker.
-
-NOTE: This program expects the following folders to exist in the same directory as main.py:
-- /csv_outputs
-    - chains
-    - ohlc
-    - senti
-- /png_outputs
-    - chains
