@@ -92,3 +92,11 @@ List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a l
 <- main.py ->
 
 Routine to create .png files for various calculated surfaces for a specific ticker/set of tickers. Can comment/uncomment code to pass a single ticker via command line argument. Mainly just used as a script to collect OptionChain data, Time Series data and .png files for all calculated surfaces for any optionable ticker.
+
+/proto_view:
+
+HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file
+
+NOTE: /provo_view will not work with the HTML and .js files nested in the /proto_view directoy; will have to cut and paste into the same directory as main.py or change the src links to traverse into parent directory.
+
+=> /proto_view is being replaced by the code located at my github repo [option-chain-view](https://github.com/rolinmb/option-chain-view)
