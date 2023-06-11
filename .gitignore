@@ -1,9 +1,5 @@
 av_config.py
 
-index.html
-series_plot.js
-read_chain_csv.js
-
 /csv_outputs
 /png_outputs
 /__pycache__
