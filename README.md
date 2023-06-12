@@ -62,7 +62,7 @@ Uses matplotlib.pyplot to create surface visualizations of the OptionChain objec
 
 buildChainSurfaceLists(): returns two lists (Call and Put surfaces), where each list contains the same number of sublists (length = number of expration dates on the Option Chain) representing data for each expiration date for the individual Call or Put surface. Each surface sublist (representing a unique time to expiration) contains 3 sub-sublists;
 
-- Call or Put list
+- Call or Put list [ [[X list], [Y list], [Z list]], [[X list], [Y list], [Z list]], ...]
     - List of unique Times to Expiration (equivalently the unique Expriation Dates) for that OptionChain
         - X list = Time to Expiration date (the unique time to expiration, constant values)
         - Y list = Strike Price of unique Expiration date (all strike prices of the specific time to expiration)
@@ -72,7 +72,7 @@ buildChainSurfacePlots(): Calls buildChainSurfacesLists() and dual_mesh_plot_3d(
 
 buildChainSurfacePoints(): returns two lists (Call and Put surfaces), where each list contains sublists of individual surface point time to X (expiration), Y(strike price), Z data for the respective Call or Put surface;
 
-- Call or Put list
+- Call or Put list [ [X, Y, Z], [X, Y, Z], [X, Y, Z],  ...]
     - Points list
         - X = Time to Expiration of specific Option
         - Y = Strike Price of specific Option
