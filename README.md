@@ -4,6 +4,8 @@ To attest to my unwillingness to give financial advice, the program will not cur
 
 I have provided two potential other potential option chain data sources; but if they don't work, you'll have to actually pay for an option chain data API such as [Tradier](https://tradier.com/). I initially wrote this program to use the Tradier demo API but I guess I was making too many calls for a demo account... So if you don't pay for an API/data provider you'll have to keep jumping around sources like so.
 
+I also have created a potential front-end to view the .csv and .png files with node.js/React.js in another repo called [option-chain-view](https://github.com/rolinmb/option-chain-view)
+
 NOTE: This program expects the following folders & subfolders to exist in the same directory as main.py:
 - /csv_outputs
     - chains
