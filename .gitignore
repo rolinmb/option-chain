@@ -1,7 +1,8 @@
-av_config.py
-util.py
+/__pycache__
+geckodriver.log
 
 /csv_outputs
 /png_outputs
-/__pycache__
-geckodriver.log
+
+av_config.py
+util.py
