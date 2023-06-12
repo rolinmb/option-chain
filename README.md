@@ -1,4 +1,8 @@
-NOTE: This program expects the following folders to exist in the same directory as main.py:
+Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
+
+To attest to my unwillingness to give financial advice, the program will not currently work for the provided CHAIN_BASE_URL in dummy_util.py. If you want to make this program run, you will have to refactor the methods to scrape HTML from a different option chain data source; or actually pay for an option chain data API such as [Tradier](https://tradier.com/). I initially wrote this program to use the Tradier demo API but I guess I was making too many calls for a demo account... So if you don't pay for an API/data provider you'll have to keep jumping around sources like so.
+
+NOTE: This program expects the following folders & subfolders to exist in the same directory as main.py:
 - /csv_outputs
     - chains
     - ohlc
@@ -6,8 +10,7 @@ NOTE: This program expects the following folders to exist in the same directory 
 - /png_outputs
     - chains
 
-
-<- finoptions.py -> 
+<- <b>finoptions.py</b> -> 
 
 3 classes to define an OptionChain, the individual Option objects, as well as a ChainExpiration objects.
 
@@ -19,7 +22,7 @@ In the process of fetching the OptionChain HTML to scrape/parse, the program als
 
 If you are building an OptionChain from scratch; the program first checks if the ticker has Time Series data available to fetch, then will attempt to fetch the Option Chain HTML and parse to insure the ticker entered is optionable (has an option chain available).
 
-<- finmath.py ->
+<- <b>finmath.py</b> ->
 
 Many functions to calculate relevant metrics of Option objects, as well as a fucntion for finding the underlying's standard deviation/historical volatilty and functions for simple/exponential/double exponential moving averages (moving averages only used in senti.py for now, but can be used on any pandas DataFrame column or pandas Series object).
 
@@ -29,7 +32,7 @@ If building an OptionChain from scratch (no .csv passed in), then the Option var
 
 Otherwise, the .csv file output from a new OptionChain instance will already have these additional calculations and the Options are constructed with the values passed in as a parameter.
 
-<- av.py ->
+<- <b>av.py/</b> ->
 
 Short collection of functions to query the [AlphaVantage API](https://www.alphavantage.co/documentation/) to fetch OHLC Time Series data. Also performs price adjusting to accounti for stock splits, writes the DataFrame to a .csv, and returns the DataFrame to a new OptionChain instance.
 
@@ -37,7 +40,7 @@ Will first try to fetch a quote from AlphaVantage to verify the relevant ticker 
 
 Needs your unique AlphaVantage API key saved in a file named av_config.py; the file dummy_av_config.py was provided as an example. It is free to sign up for the AlphaVantage API and start using many of their free endpoints.
 
-<- util.py ->
+<- <b>util.py</b> ->
 
 Collection of helper functions and objects used in a variety of places throughout the program.
 
@@ -49,7 +52,7 @@ getQuoteMW(): Fetches a quote from Market Watch for the specified ticker
 
 validateTicker(): Uses getQuoteMW() to determine if the ticker exists before fetching Option Chain and/or Time Series data
 
-<- surface.py ->
+<- <b>surface.py</b> ->
 
 Uses matplotlib.pyplot to create surface visualizations of the OptionChain objects. Also contains functions for getting the lists of data used to represent the surfaces for further calculations (like finding surface gradients/gradient fields)
 
@@ -77,23 +80,23 @@ buildChainGradientPlots(): View 3d plot of calculated OptionChain Call & Put sur
 
 buildChainSurfacePlots2(): Calls quad_mesh_plot_3d(), buildChainSurfaceLists() and buildChainSurfacePoints() to construct a 4-plot 3d visualization of the calculatied OptionChain Call & Put surfaces alongside those surfaces' respective gradient surfaces.
 
-<- test.py ->
+<- <b>test.py</b> ->
 
 Tests for all combinations of constructor parameters of OptionChain objects. Also tests av.py fetch methods and simple 2-plot OptionChain surface visualization for default IV calculated surface.
 
-<- senti.py ->
+<- <b>senti.py</b> ->
 
 Scrapes headlines from a set of tickers and applies sentiment scores (via ntlk) to each headline in order to come up with a daily average sentiment score. Creates a plot of historical average daily sentiment scores w/ moving averages (finmath.py) using matplotlib.
 
-<- senti_config.py ->
+<- <b>senti_config.py</b> ->
 
 List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a list of ntlk vader sentiment scores for analyzing the tone of headlines.
 
-<- main.py ->
+<- <b>main.py</b> ->
 
 Routine to create .png files for various calculated surfaces for a specific ticker/set of tickers. Can comment/uncomment code to pass a single ticker via command line argument. Mainly just used as a script to collect OptionChain data, Time Series data and .png files for all calculated surfaces for any optionable ticker.
 
-/proto_view:
+<b>/proto_view:</b>
 
 HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file
 
