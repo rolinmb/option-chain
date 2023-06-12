@@ -24,7 +24,7 @@ function buildSurfaceImages(ticker, div){
         img_header.innerHTML = '$'+ticker+' Option Chain '+func_strs[i]+' & '+func_strs[i]+' Gradient Surfaces';
         div.appendChild(img_header);
         var img_elem = document.createElement('img');
-        img_elem.src = 'png_outputs/chains/'+ticker+'_'+func_names[i]+'_quadsurface.png';
+        img_elem.src = '../png_outputs/chains/'+ticker+'_'+func_names[i]+'_quadsurface.png';
         div.appendChild(img_elem);
     }
 }

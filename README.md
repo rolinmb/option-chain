@@ -10,7 +10,6 @@ NOTE: This program expects the following folders & subfolders to exist in the sa
 - /csv_outputs
     - chains
     - ohlc
-    - senti
 - /png_outputs
     - chains
 
@@ -87,14 +86,6 @@ buildChainSurfacePlots2(): Calls quad_mesh_plot_3d(), buildChainSurfaceLists() a
 <- <b>test.py</b> ->
 
 Tests for all combinations of constructor parameters of OptionChain objects. Also tests av.py fetch methods and simple 2-plot OptionChain surface visualization for default IV calculated surface.
-
-<- <b>senti.py</b> ->
-
-Scrapes headlines from a set of tickers and applies sentiment scores (via ntlk) to each headline in order to come up with a daily average sentiment score. Creates a plot of historical average daily sentiment scores w/ moving averages (finmath.py) using matplotlib.
-
-<- <b>senti_config.py</b> ->
-
-List of tickers to scrape headlines off of [FinViz](https://finviz.com/) and a list of ntlk vader sentiment scores for analyzing the tone of headlines.
 
 <- <b>main.py</b> ->
 

@@ -306,6 +306,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
     # fig.suptitle('%s Option Chain %s Surfaces & Surface Gradient Magnitudes'%(ticker, method_name), fontsize=12)
     # Calls method_name surface
     ax_c = fig.add_subplot(2, 2, 1, projection='3d')
+    ax_c.view_init(70, 170)
     ax_c.set_title('Call %s'%method_name, fontsize=10)
     ax_c.set_xlabel('YTE', fontsize=8)
     ax_c.set_ylabel('Strike', fontsize=8)
@@ -316,6 +317,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
         linewidth=0, antialiased=False)
     # Puts method_name surface
     ax_p = fig.add_subplot(2, 2, 2, projection='3d')
+    ax_p.view_init(70, 170)
     ax_p.set_title('Put %s'%method_name, fontsize=10)
     ax_p.set_xlabel('YTE', fontsize=8)
     ax_p.set_ylabel('Strike', fontsize=8)
@@ -326,6 +328,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
         linewidth=0, antialiased=False)
     # Calls Gradient magnitude surface
     ax_gc = fig.add_subplot(2, 2, 3, projection='3d')
+    ax_gc.view_init(70, 170)
     ax_gc.set_title('Call %s ||grad||'%method_name, fontsize=10)
     ax_gc.set_xlabel('YTE', fontsize=8)
     ax_gc.set_ylabel('Strike', fontsize=8)
@@ -335,6 +338,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
         linewidth=0, antialiased=False)
     # Puts Gradient magnitude surface
     ax_gp = fig.add_subplot(2, 2, 4, projection='3d')
+    ax_gp.view_init(70, 170)
     ax_gp.set_title('Put %s ||grad||'%method_name, fontsize=10)
     ax_gp.set_xlabel('YTE', fontsize=8)
     ax_gp.set_ylabel('Strike', fontsize=8)
