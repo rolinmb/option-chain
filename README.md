@@ -106,4 +106,4 @@ HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via 
 
 NOTE: /provo_view will not work with the HTML and .js files nested in the /proto_view directoy; will have to cut and paste into the same directory as main.py or change the src links to traverse into parent directory.
 
-=> /proto_view is being replaced by the code located at my github repo [option-chain-view](https://github.com/rolinmb/option-chain-view)
+=> /proto_view is essentially replaced by the React.js code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view)
