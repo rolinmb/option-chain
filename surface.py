@@ -1,8 +1,13 @@
 from finoptions import *
 import numpy as np
 from scipy.interpolate import griddata
+'''<-------->
+if you want to show matplotlib plots in main.py or test.py
+uncomment these two lines
+   <-------->'''
 import matplotlib
 matplotlib.use('agg')
+'''<-------->'''
 from matplotlib import cm
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D

@@ -15,22 +15,20 @@ funct_list_0 = [
 # funct_list_1 = [getOptionIV, getOptionUltima, getOptionTheoDif]
 # funct_list_2 = [getOptionIV, getOptionTheta, getOptionVomma, getOptionVeta, getOptionUltima]
 
-def main_routine(ticker, ts_csv, chain_csv, plotting=False, logging=False, showing=False):
-        # Create ts_csv if doesn't already exist;
-        if not os.path.isfile(ts_csv):
-            fetchSeriesData(
+def main_routine(ticker, ts_csv, chain_csv, plotting=True, logging=False, showing=False):
+        # if not os.path.isfile(ts_csv): # Create ts_csv if doesn't already exist;
+        fetchSeriesData( # Rewrite series .csv out each time
                 ticker=ticker,
                 adj_flag=True,
                 logging=logging,
                 ts_csv_out=ts_csv
-            )
-        # Create OptionChain object
+        )
         ts_df = pd.read_csv(ts_csv)
         chain = OptionChain(
             ticker=ticker,
             ts_csv_out=ts_csv,
             ts_df=ts_df,
-            fromCSV=True,
+            fromCSV=False, # Rewrite chain .csv out each time
             chain_csv_out=chain_csv,
             logging=logging
         )

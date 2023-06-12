@@ -46,7 +46,7 @@ Needs your unique AlphaVantage API key saved in a file named av_config.py; the f
 
 Collection of helper functions and objects used in a variety of places throughout the program.
 
-getSoup(): Used in finmath.py/OptionChain to fetch the Option Chain HTML, which requires Selenium to navigate and toggle elements on the page in order to make the Option Chain HTML fully visible.
+getSoup(): Used in finmath.py/OptionChain to fetch the Option Chain HTML, which requires Selenium to navigate and toggle elements on the page in order to make the Option Chain HTML fully visible. Beating the dead horse here; you'll have to refactor this method and parts of finoptions.py to use a different data source since CHAIN_BASE_URL as is will not be able to parse HTML as expected.
 
 stripCommas() & parsePrice(): Used in getQuoteMW() to clean up parsed HTML for parsing into float()
 
