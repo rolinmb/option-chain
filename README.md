@@ -1,6 +1,8 @@
 Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
 
-To attest to my unwillingness to give financial advice, the program will not currently work for the provided CHAIN_BASE_URL in dummy_util.py. If you want to make this program run, you will have to refactor the methods to scrape HTML from a different option chain data source; or actually pay for an option chain data API such as [Tradier](https://tradier.com/). I initially wrote this program to use the Tradier demo API but I guess I was making too many calls for a demo account... So if you don't pay for an API/data provider you'll have to keep jumping around sources like so.
+To attest to my unwillingness to give financial advice, the program will not currently work for the provided CHAIN_BASE_URL in dummy_util.py. You'll have to edit getSoup() in dummy_util.py and probably the OptionChain and Option classes to parse the DataFrame and then .csv file in the same format as the current finoptions.py does
+
+I have provided two potential other potential option chain data sources; but if they don't work, you'll have to actually pay for an option chain data API such as [Tradier](https://tradier.com/). I initially wrote this program to use the Tradier demo API but I guess I was making too many calls for a demo account... So if you don't pay for an API/data provider you'll have to keep jumping around sources like so.
 
 NOTE: This program expects the following folders & subfolders to exist in the same directory as main.py:
 - /csv_outputs

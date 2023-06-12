@@ -30,29 +30,14 @@ ADJ_FLAG_OPTIONS = [
 ]
 
 STOCK_TICKERS = [
-     'AAPL', 'ABC', 'ABNB', 'ADM',
-     'ADMA', 'ALB', 'APO', 'BAH',
-     'BE', 'CBOE', 'CBT', 'CMP',
-     'COIN', 'COST', 'CPNG', 'CRSP', 'CTVA',
-     'CVS', 'DLTR', 'ETN', 'FDX',
-     'GD', 'GOOG', 'HSY', 'HRL',
-     'ICE', 'INTU', 'IR', 'IRM',
-     'LAND','LIN', 'LQDA', 'MA', 'MMM',
-     'MO', 'MPW', 'MSCI', 'MSFT',
-     'NVO', 'RSG', 'SBUX', 'SCL',
-     'SLCA', 'SWBI', 'SYK', 'TGT',
-     'TSLA', 'ULTA', 'UWMC', 'V',
-     'WCN', 'WM', 'WMG'
+     'AAPL', 'META', 'MSFT', 'TSLA'
 ]
 
-ETF_TICKERS = [
-    'DIA','IWM','QQQ','SPY',
-    'XLU','XLV','XHB','XPH','XRT','XLI',
-    'XLF','XLK','XLK','XLRE','XLP',
-    'EEM','FEZ','KIE','SOCL','ARKK','MJ',
-    'TAN','ICLN','QYLD','JETS','IYT','TLT'
-]
-
+ETF_TICKERS = ['DIA','IWM','QQQ','SPY',]
+'''
+You'll have to edit this and probably the OptionChain and Option classes to parse the
+DataFrame and then .csv file in the same format as the current finoptions.py does
+'''
 def getSoup(ticker, sTime, logging=True):
     chain_url = CHAIN_BASE_URL + ticker
     driver = webdriver.Firefox(options = HEADLESS_ARG)
