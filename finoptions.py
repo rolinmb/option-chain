@@ -823,7 +823,7 @@ class OptionChain:
         for i in range(0, len(raw_data)):
             # capture expiration dates and build str, then find time to expiry w/ datetime
             if raw_data[i][0] == "CALLS":
-                exp = raw_data[i+1][0].split()[1:] # won't ever exceep len(raw_data); i+1 is safe
+                exp = raw_data[i+1][0].split()[1:] # won't ever exceed len(raw_data); i+1 is safe
                 exp_strs.append(' '.join(exp))
                 dt_expiry = datetime.strptime(' '.join(exp), "%B %d, %Y")
                 delta_t = dt_expiry - dt_start

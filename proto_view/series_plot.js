@@ -1,11 +1,5 @@
 var clicks = 0;
 
-function clearChildNodes(div){
-    while(div.firstChild){
-        div.removeChild(div.firstChild);
-    }
-}
-
 function updateSeriesPlot(div, data, layout){
     if(!div.hasChildNodes() || clicks < 2){
         Plotly.plot(div, data, layout);

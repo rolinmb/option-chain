@@ -1,6 +1,5 @@
 from time import time
 from util import validateTicker, ETF_TICKERS, STOCK_TICKERS
-# from senti_config import FULL_TICKERS
 from finoptions import *
 from surface import *
 from sys import argv, exit
