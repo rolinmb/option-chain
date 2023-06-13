@@ -12,15 +12,13 @@ var func_strs = [
     'Zomma','Color','Ultima'
 ];
 
-function clearChildNodes(div){
-    while(div.firstChild){
-        div.removeChild(div.firstChild);
-    }
-}
-
 function updateSurfaceImages(ticker){
     var div = document.getElementById('surface_imgs');
-    if(div.hasChildNodes()){ clearChildNodes(div); }
+    if(div.hasChildNodes()){
+        while(div.firstChild){
+            div.removeChild(div.firstChild);
+        }
+    }
     for(var i = 0; i < 18; i++){
         var img_header = document.createElement('h3');
         img_header.innerHTML = '$'+ticker+' Option Chain '+func_strs[i]+' & '+func_strs[i]+' Gradient Surfaces';
