@@ -1,6 +1,7 @@
 var clicks = 0;
 
-function updateSeriesPlot(div, data, layout){
+function updateSeriesPlot(data, layout){
+    var div = document.getElementById('series_plot');
     if(!div.hasChildNodes() || clicks < 2){
         Plotly.plot(div, data, layout);
         clicks++;
@@ -43,5 +44,5 @@ function readSeriesCSV(){
             autorange: true
         }
     };
-    updateSeriesPlot(document.getElementById('series_plot'), data, layout);
+    updateSeriesPlot(data, layout);
 }

@@ -32,7 +32,7 @@ function updateSurfaceImages(ticker){
 function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
     var call_div = document.getElementById('call_surfaces');
     var put_div = document.getElementById('put_surfaces');
-    if(fresh){ // Create new children plots of call/put surfaces containers
+    if(fresh){ // Create new children then call Plotly.plot() with them
         for(const key in call_df){
             var c_layout = { title: ticker+' Call '+key, autosize: false, width: 750, height: 750 };
             var p_layout = { title: ticker+' Put '+key, autosize: false, width: 750, height: 750 };
@@ -59,7 +59,7 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
             put_div.appendChild(new_put_elmnt);
             Plotly.plot(document.getElementById('put_'+key), p_data, p_layout);
         }
-    }else{ // Get children plot divs of main call/put surfaces containers and update
+    }else{ // Get children plot divs and update by calling Plotly.newPlot() with them
         var c_children = call_div.children;
         var p_children = put_div.children;
         const data_keys = call_df.keys();
