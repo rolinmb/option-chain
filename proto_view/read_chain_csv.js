@@ -32,6 +32,7 @@ function updateSurfaceImages(ticker){
 function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
     var call_div = document.getElementById('call_surfaces');
     var put_div = document.getElementById('put_surfaces');
+    const config = [{ renderer: 'webgl' }];
     if(fresh){ // Create new children then call Plotly.plot() with them
         for(const key in call_df){
             var c_layout = { title: ticker+' Call '+key, autosize: false, width: 750, height: 750 };
@@ -46,7 +47,7 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
             }];
             new_call_elmnt.id = 'call_'+key;
             call_div.appendChild(new_call_elmnt);
-            Plotly.plot(document.getElementById('call_'+key), c_data, c_layout);
+            Plotly.plot(document.getElementById('call_'+key), c_data, c_layout, config);
             var p_data = [{
                 type: 'surface',
                 colorscale: 'Electric',
@@ -57,7 +58,7 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
             var new_put_elmnt = document.createElement('div');
             new_put_elmnt.id =  'put_'+key;
             put_div.appendChild(new_put_elmnt);
-            Plotly.plot(document.getElementById('put_'+key), p_data, p_layout);
+            Plotly.plot(document.getElementById('put_'+key), p_data, p_layout, config);
         }
     }else{ // Get children plot divs and update by calling Plotly.newPlot() with them
         var c_children = call_div.children;
@@ -80,8 +81,8 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
                 y: ytes,
                 z: put_df[keys[i]]
             }];
-            Plotly.newPlot(c_children[i], c_data, c_layout);
-            Plotly.newPlot(p_children[i], p_data, p_layout);
+            Plotly.newPlot(c_children[i], c_data, c_layout, config);
+            Plotly.newPlot(p_children[i], p_data, p_layout, config);
         }
     }
 }
