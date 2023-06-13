@@ -104,8 +104,6 @@ function updateSurfaces(ticker, ytes, strikes, call_df, put_df){
 function readChainCSV(){
     var unique_ytes = [];
     var strikes_yte = []; // list of lists
-    var call_vals = []; // list of lists
-    var put_vals = []; // list of lists
     var call_df = { // each key-value is a list of lists
         theo_dif: [],
         iv: [],
@@ -162,7 +160,7 @@ function readChainCSV(){
                 var new_row = tbody_elmnt.insertRow();
                 var col_data = row_data[row].split(',');
                 if(col_data.length === 1 && col_data[0].trim() === ''){
-                    continue;
+                    continue; // handles extra empty row being output at end of HTML table
                 }
                 // Detect new YTE/Expiration
                 if(!unique_ytes.includes(col_data[3])){
@@ -173,12 +171,8 @@ function readChainCSV(){
                         call_df[key].push([]);
                         put_df[key].push([]);
                     }
-                    call_vals.push([]);
-                    put_vals.push([]);
                 }
                 strikes_yte[exp_num-1].push(col_data[6]); // Unique strkes for YTE
-                call_vals[exp_num-1].push(col_data[16]); // Call IV for strike and YTE
-                put_vals[exp_num-1].push(col_data[42]);  // Put IV for strike and YTE
 
                 call_df['theo_dif'][exp_num-1].push(col_data[12]);
                 call_df['iv'][exp_num-1].push(col_data[16]);
@@ -228,7 +222,6 @@ function readChainCSV(){
                     }
                 }
             }
-            // updateSurfaces(ticker, unique_ytes, strikes_yte, call_vals, put_vals);
             updateSurfaces(ticker, unique_ytes, strikes_yte, call_df, put_df);
         };
     }else{
