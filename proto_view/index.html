@@ -20,14 +20,17 @@
             <input type="button" id="btnsubmit" value="Show/Update" onclick="readChainCSV();">
         </div>
         <br><br>
-        <h3>Option Chain Surfaces:</h3>
-        <div id="surfaces_area" style="display:flex;flex-direction:column;align-items:center;">
+        <h3>Option Chain Surfaces with Plotly.js:</h3>
+        <div id="surfaces_area" style="width:90vw;display:flex;flex-direction:row;align-items:center;justify-content:center;overflow-y:auto;">
             <div id="call_surfaces"></div>
             <div id="put_surfaces"></div>
         </div>
         <br><br>
+        <h3>Option Chain Surface Images From Python:</h3>
+        <div id="surface_imgs" style="width:90vw;height:1000px;text-align:center;overflow-y:auto;"></div>
+        <br><br>
         <h3>Option Chain Data:</h3>
-        <table id="chain_table" border="1" style="border-collapse: collapse;">
+        <table id="chain_table" border="1" style="padding-top:10px;border-collapse:collapse;overflow-x:auto;">
             <thead>
                 <tr>
                     <th>Ticker</th>
