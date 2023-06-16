@@ -32,7 +32,6 @@ function updateSurfaceImages(ticker){
 function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
     var call_div = document.getElementById('call_surfaces');
     var put_div = document.getElementById('put_surfaces');
-    const config = [{ renderer: 'webgl' }];
     if(fresh){ // Create new children then call Plotly.plot() with them
         for(const key in call_df){
             var c_layout = { title: ticker+' Call '+key, autosize: false, width: 750, height: 750 };
@@ -47,7 +46,7 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
             }];
             new_call_elmnt.id = 'call_'+key;
             call_div.appendChild(new_call_elmnt);
-            Plotly.plot(document.getElementById('call_'+key), c_data, c_layout, config);
+            Plotly.plot(document.getElementById('call_'+key), c_data, c_layout);
             var p_data = [{
                 type: 'surface',
                 colorscale: 'Electric',
@@ -58,7 +57,7 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
             var new_put_elmnt = document.createElement('div');
             new_put_elmnt.id =  'put_'+key;
             put_div.appendChild(new_put_elmnt);
-            Plotly.plot(document.getElementById('put_'+key), p_data, p_layout, config);
+            Plotly.plot(document.getElementById('put_'+key), p_data, p_layout);
         }
     }else{ // Get children plot divs and update by calling Plotly.newPlot() with them
         var c_children = call_div.children;
@@ -97,7 +96,6 @@ function updateSurfaces(ticker, ytes, strikes, call_df, put_df){
     }else{
         updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, false); // Update existing divs; fresh=false
     }
-    updateSurfaceImages(ticker);
 }
 
 function readChainCSV(){
@@ -222,6 +220,7 @@ function readChainCSV(){
                 }
             }
             updateSurfaces(ticker, unique_ytes, strikes_yte, call_df, put_df);
+            updateSurfaceImages(ticker);
         };
     }else{
         alert("Please select a .csv file");
