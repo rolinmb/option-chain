@@ -1,7 +1,5 @@
 TODO:
 * create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view);
-* edit option-chain-view repo to generate plotly.js (find a way to reuse WebGL contexts rather than fetch new ones with React/node?)
-
 
 Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
 
