@@ -4,24 +4,24 @@ from scipy import optimize
 import scipy.stats
 import pandas as pd
 
-def sma(data,t):
+def sma(data,t): # Simple MA
     return data.rolling(t).mean()
 
-def ema(data,t):
+def ema(data,t): # Exponential MA
     return data.ewm(span=t,adjust=False).mean()
 
-def dema(data,t):
+def dema(data,t): # Double-Exponential MA
     e = ema(data,t)
     de = ema(e,t)
     return (2.0*e)-de
 
-def typicalPrice(h,l,c):  # Typical Price of asset
+def typicalPrice(h,l,c): # Typical Price of asset
 	return (h+l+c)/3
 	
 def averagePrice(o,h,l,c): # Average Price of Open, High, Low, Close
 	return (o+h+l+c)/4
 	
-def tsi(c,r,s):
+def tsi(c,r,s): # True Strength Index
 	mom = []
 	for i in range(1,c.size):
 		m = c.iloc[i]-c.iloc[i-1]
@@ -31,7 +31,7 @@ def tsi(c,r,s):
 	ema2 = ema(ema(abs(mom),r),s)
 	return 100*(ema1/ema2)
 
-def roc(data,t):    # Rate-of-Change Indicator
+def roc(data,t): # Rate-of-Change Indicator
 	rates = []
 	for i in range(t-1,data.size):
 		rate = (data.iloc[i]-data.iloc[i-t])/data.iloc[i-t]
@@ -50,16 +50,14 @@ def approxDeriv(data,t): # Finite-Difference Approximation of 1st Derivative
 	
 	return pd.Series(approx,index=rates.index.values[1:])
 
-def calc_histvol(close_data):
+def calc_histvol(close_data): # Standard Deviation of Underlying (or Hist. Vol)
     log_returns = log(close_data/close_data.shift())
     return log_returns.std()*252**0.5
 
-# Normal Cumulative Distribution Funciton
-def CND(X):
+def CND(X): # Normal Cumulative Distribution Funciton [ N(X) ]
     return float(scipy.stats.norm.cdf(X))
 
-# Normal Probability Density Function (derivative of CND(X))
-def PDF(X):
+def PDF(X): # Normal Probability Density Function [derivative of CND(X) or N'(X) ]
     return float(scipy.stats.norm.pdf(X))
 
 # Solution to Black-Scholes Option Pricing Model
