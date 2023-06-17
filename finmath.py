@@ -38,7 +38,7 @@ def roc(data,t): # Rate-of-Change Indicator
 		rates.append(rate)
 	return pd.Series(rates,index=data.index.values[t-1:])
 
-def approxDeriv(data,t): # Finite-Difference Approximation of 1st Derivative
+def approxDeriv(data,t): # Finite-Difference Approximation of 1st Derivative (dUnderlying Price/dTime)
 	approx = []
 	rates = roc(data,t)
 	for i in range(1,rates.size):
@@ -57,10 +57,17 @@ def calc_histvol(close_data): # Standard Deviation of Underlying (or Hist. Vol)
 def CND(X): # Normal Cumulative Distribution Funciton [ N(X) ]
     return float(scipy.stats.norm.cdf(X))
 
-def PDF(X): # Normal Probability Density Function [derivative of CND(X) or N'(X) ]
+def PDF(X): # Normal Probability Density Function [ derivative of CND(X) or N'(X) ]
     return float(scipy.stats.norm.pdf(X))
-
-# Solution to Black-Scholes Option Pricing Model
+'''
+Solution to Black-Scholes Option Pricing Model (from Wikipedia)
+V = Option Contract Price ($)
+S = Underlying Asset Price ($)
+K = Contract Strike Price ($)
+T = Time to Expiration (years)
+q = Underlying Dividend Yield (%)
+r = Effective Federal Funds Rate (%)
+'''
 def BlackScholes(v, c_p=True, S=100., K=100., T=1., q=0.0, R=0.01, logging=False):
     try:
         d1 = (log(S/K)+(R+(v*v/2.0))*T)/(v*sqrt(T))
@@ -84,19 +91,18 @@ def calc_impvol(V=5., cp=True, s=100., k=100., t=1., r=0.01, logging=True):
             print('calc_impvol(): Couldn''t find IV for TTE %s $%s strike; f(0) = %s f(1) = %s have same signs, setting IV to 0.0'%(t, k, f(0), f(5)))
         return 0.0
 
-def calc_delta(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01): # Different fomula for Call of Put
+def calc_delta(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     if c_p:  # True = call
         return exp(-1.0*q*T)*CND(d1)
     else:    # False = put
         return -1.0*exp(-1.0*q*T)*CND(-d1)
 
-def calc_elasticity(delta, V=0.01, S=100.): # V = option contract value, S = underlying price
+def calc_elasticity(delta, V=0.01, S=100.):
     return delta*(S/V)
 
-def calc_vega(iv, S=100., K=100., T=1., r=0.01): # Vega formula is same for Call/Put
+def calc_vega(iv, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    # return S*PDF(d1) # also valid
     d2 = d1-(iv*sqrt(T))
     vega_ret = K*PDF(d2)*sqrt(T)
     return 0.0 if isnan(vega_ret) else vega_ret
@@ -132,17 +138,16 @@ def calc_epsilon(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
 
 def calc_gamma(iv, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    # return PDF(d1)/(S*iv*sqrt(T)) # also valid
     d2 = d1-(iv*sqrt(T))
     gam_ret = K*exp(-1.0*r*T)*(PDF(d2)/(S*S*iv*sqrt(T)))
     return 0.0 if isnan(gam_ret) else gam_ret
 
-def calc_vanna(iv, vega, S=100., K=100., T=1., r=0.01): # Vanna formula is same for Call/Put
+def calc_vanna(iv, vega, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     van_ret = (vega/S)*(1.0-(d1/(iv*sqrt(T))))
     return 0.0 if isnan(van_ret) else van_ret
 
-def calc_charm(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01): # Different formula for Call or put
+def calc_charm(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     if c_p: # True = call
@@ -152,31 +157,31 @@ def calc_charm(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01): # Different f
         p_ret = (-1.0*q*exp(-1.0*q*T)*CND(-1.0*d1)) - ((exp(-1.0*q*T)*PDF(d1))*(((2.0*(r-q)*T)-(d2*iv*sqrt(T)))/(2.0*T*iv*sqrt(T))))
         return 0.0 if isnan(p_ret) else p_ret
 
-def calc_vomma(iv, vega, S=100., K=100., T=1., r=0.01): # Vomma formula is same for Call/Put
+def calc_vomma(iv, vega, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     vom_ret = (vega*d1*d2)/iv
     return 0.0 if isnan(vom_ret) else vom_ret
 
-def calc_veta(iv, S=100., K=100., T=1., q=0.0, r=0.01): # Veta formula is same for Call/Put
+def calc_veta(iv, S=100., K=100., T=1., q=0.0, r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     factor = -1.0*S*exp(-1.0*q*T)*PDF(d1)*sqrt(T)
     veta_ret = factor*(q+(((r-q)*d1)/(iv*sqrt(T)))-((1.0+(d1*d2))/(2.0*T)))
     return 0.0 if isnan(veta_ret) else veta_ret
 
-def calc_speed(gamma, iv, S=100., K=100., T=1., r=0.01): # Speed formula is same for Call/Put
+def calc_speed(gamma, iv, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     speed_ret = (-1.0*gamma/S)*((d1/(iv*sqrt(T)))+1.0)
     return 0.0 if isnan(speed_ret) else speed_ret
 
-def calc_zomma(gamma, iv, S=100., K=100., T=1., r=0.01): # Zomma formula is same for Call/Put
+def calc_zomma(gamma, iv, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     zom_ret = gamma*(((d1*d2)-1.0)/iv)
     return 0.0 if isnan(zom_ret) else zom_ret
 
-def calc_color(iv, S=100., K=100., T=1., q=0.0, r=0.01): # Color formula is same for Call/Put
+def calc_color(iv, S=100., K=100., T=1., q=0.0, r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     factor1 = -1.0*exp(-1.0*q*T)*PDF(d1)/(2.0*S*T*iv*sqrt(T))
@@ -184,7 +189,7 @@ def calc_color(iv, S=100., K=100., T=1., q=0.0, r=0.01): # Color formula is same
     clr_ret = factor1*((2.0*q*T)+1.0+factor2)
     return 0.0 if isnan(clr_ret) else clr_ret
 
-def calc_ultima(iv, vega, S=100., K=100., T=1., r=0.01): # ultima formula is same for Call/Put
+def calc_ultima(iv, vega, S=100., K=100., T=1., r=0.01):
     d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
     d2 = d1-(iv*sqrt(T))
     factor = (-1.0*vega)/(iv**2)
