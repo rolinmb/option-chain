@@ -38,7 +38,7 @@ If building an OptionChain from scratch (no .csv passed in), then the Option var
 
 Otherwise, the .csv file output from a new OptionChain instance will already have these additional calculations and the Options are constructed with the values passed in as a parameter.
 
-<- <b>av.py/</b> ->
+<- <b>av.py</b> ->
 
 Short collection of functions to query the [AlphaVantage API](https://www.alphavantage.co/documentation/) to fetch OHLC Time Series data. Also performs price adjusting to accounti for stock splits, writes the DataFrame to a .csv, and returns the DataFrame to a new OptionChain instance.
 
@@ -94,10 +94,12 @@ Tests for all combinations of constructor parameters of OptionChain objects. Als
 
 Routine to create .png files for various calculated surfaces for a specific ticker/set of tickers. Can comment/uncomment code to pass a single ticker via command line argument. Mainly just used as a script to collect OptionChain data, Time Series data and .png files for all calculated surfaces for any optionable ticker.
 
-<b>/proto_view:</b>
+<- <b>/proto_view:</b> ->
 
 HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file
 
-NOTE: /provo_view will not work with the HTML and .js files nested in the /proto_view directoy; will have to cut and paste into the same directory as main.py or change the src links to traverse into parent directory.
+=> /proto_view is essentially my testing ground for the view/React app code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view), try and make your own visuals yourself!
 
-=> /proto_view is essentially replaced by the React.js code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view)
+<- <b>/rk:</b> ->
+
+TODO: Implmement Runge-Kutta 4 method to simulate the (partial) differential equation of Y

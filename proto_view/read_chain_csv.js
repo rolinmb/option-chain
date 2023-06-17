@@ -140,11 +140,11 @@ function updateSurfaces(ticker, ytes, strikes, call_df, put_df){
     console.log('Length of Call IV Value List (should match ytes):',call_df['iv'].length);
     console.log('Length of Put IV Value List (should match ytes):',put_df['iv'].length);
     if(!document.getElementById('surface_imgs').hasChildNodes()){
-        //updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, true); // Create new plot divs; fresh=true
-        updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, true);
+        updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, true); // Create new plot divs; fresh=true
+        //updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, true);
     }else{
-        //updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, false); // Update existing divs; fresh=false
-        updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, false);
+        updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, false); // Update existing divs; fresh=false
+        //updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, false);
     }
 }
 
