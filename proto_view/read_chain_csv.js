@@ -19,7 +19,7 @@ function updateSurfaceImages(ticker){
             div.removeChild(div.firstChild);
         }
     }
-    for(var i = 0; i < 18; i++){
+    for(var i = 0; i < func_strs.length; i++){
         var img_header = document.createElement('h3');
         img_header.innerHTML = '$'+ticker+' Option Chain '+func_strs[i]+' & '+func_strs[i]+' Gradient Surfaces';
         div.appendChild(img_header);
@@ -86,15 +86,65 @@ function updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, fresh){
     }
 }
 
+function updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, fresh){
+    var call_div = document.getElementById('call_surfaces');
+    var put_div = document.getElementById('put_surfaces');
+    if(fresh){ // Create new children then call Plotly.plot() with them
+        var c_layout = { title: ticker+' Call '+key, autosize: false, width: 750, height: 750 };
+        var p_layout = { title: ticker+' Put '+key, autosize: false, width: 750, height: 750 };
+        var new_call_elmnt = document.createElement('div');
+        var c_data = [{
+            type: 'surface',
+            x: strikes,
+            y: ytes,
+            z: call_df['iv']
+         }];
+        new_call_elmnt.id = 'call_'+key;
+        call_div.appendChild(new_call_elmnt);
+        Plotly.plot(document.getElementById('call_'+key), c_data, c_layout);
+        var p_data = [{
+            type: 'surface',
+            x: strikes,
+            y: ytes,
+            z: put_df['iv']
+        }];
+         var new_put_elmnt = document.createElement('div');
+        new_put_elmnt.id =  'put_'+key;
+        put_div.appendChild(new_put_elmnt);
+        Plotly.plot(document.getElementById('put_'+key), p_data, p_layout);
+    }else{ // Get children plot divs and update by calling Plotly.newPlot() with them
+        var c_children = call_div.children;
+        var p_children = put_div.children;
+        var c_layout = { title: ticker+' Call '+data_keys[i], autosize: false, width: 700, height: 700 };
+        var p_layout = { title: ticker+' Put '+data_keys[i], autosize: false, width: 700, height: 700 };
+        var c_data = [{
+            type: 'surface',
+            x: strikes,
+            y: ytes,
+            z: call_df['iv']
+        }];
+        var p_data = [{
+            type: 'surface',
+            x: strikes,
+            y: ytes,
+            z: put_df['iv']
+        }];
+        Plotly.newPlot(c_children[i], c_data, c_layout, config);
+        Plotly.newPlot(p_children[i], p_data, p_layout, config);
+    }
+}
+
 function updateSurfaces(ticker, ytes, strikes, call_df, put_df){
     console.log('Length of ytes List:',ytes.length);
     console.log('Length of strikes List (should match ytes):',strikes.length);
     console.log('Length of Call IV Value List (should match ytes):',call_df['iv'].length);
     console.log('Length of Put IV Value List (should match ytes):',put_df['iv'].length);
     if(!document.getElementById('surface_imgs').hasChildNodes()){
-        updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, true); // Create new plot divs; fresh=true
+        //updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, true); // Create new plot divs; fresh=true
+        updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, true);
     }else{
-        updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, false); // Update existing divs; fresh=false
+        //updateIndividualPlots(ticker, ytes, strikes, call_df, put_df, false); // Update existing divs; fresh=false
+        updateIndividualPlot(ticker, ytes, strikes, call_df, put_df, false);
     }
 }
 
