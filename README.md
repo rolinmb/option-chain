@@ -1,6 +1,7 @@
-TODO: create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view); then edit option-chain-view repo to generate plotly.js charts in a similar way as in proto_view  (aka get rid of react.js in option-chain-view)
+TODO:
+* create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view);
+* edit option-chain-view repo to generate plotly.js (find a way to reuse WebGL contexts rather than fetch new ones with React/node?)
 
-TODO: Limit surface rendering to only one at a time (aka create dropdown menu to select which Plotly.js surfce plot to currently view)
 
 Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
 
