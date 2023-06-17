@@ -55,15 +55,14 @@ def main_routine(ticker, ts_csv, chain_csv, plotting=True, logging=False, showin
 if __name__ == '__main__':
     t_start = time()
     # 1st argujment is 'ticker'; must validate
-    '''
     try:
         ticker = argv[1].strip().upper()
         validateTicker(ticker)
     except IndexError:
         exit('\t! INDEX ERROR: No 1st argument ''ticker'' entered => calling sys.exit()')
-    '''
+
     # Call main_routine() for every ticker
     #for ticker in ETF_TICKERS:
-    for ticker in ['DIA','IWM','QQQ','SPY']:
-        main_routine(ticker, 'csv_outputs/ohlc/%s_adj_tseries.csv'%ticker, 'csv_outputs/chains/%s_chain.csv'%ticker, plotting=True, logging=False, showing=False)
+    #for ticker in ['DIA','IWM','QQQ','SPY']:
+    main_routine(ticker, 'csv_outputs/ohlc/%s_adj_tseries.csv'%ticker, 'csv_outputs/chains/%s_chain.csv'%ticker, plotting=True, logging=False, showing=False)
     print(f'\nmain.py Total Execution Time: {str(round(time() - t_start, 2))} seconds')

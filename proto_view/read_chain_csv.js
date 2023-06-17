@@ -214,7 +214,7 @@ function readChainCSV(){
                     exp_num++; // increment index/counter for building df's
                     unique_ytes.push(col_data[3]); // add YTE to unique_ytes
                     strikes_yte.push([]); // new strike list for each expiration
-                    for(key in call_df){  // new calculations lists for each expiration
+                    for(let key in call_df){  // new calculations lists for each expiration
                         call_df[key].push([]);
                         put_df[key].push([]);
                     }
