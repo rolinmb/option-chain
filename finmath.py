@@ -75,6 +75,7 @@ def d_two(d1,IV,T):
 
 def BlackScholes(iv, c_p=True, S=100., K=100., T=1., Q=0.0, R=0.01, logging=False):
     try:
+        # TODO: does not use dividend yield q to find d1 and d2
         d1 = (log(S/K)+(R+(iv*iv/2.0))*T)/(iv*sqrt(T))
         d2 = d1-(iv*sqrt(T))
         if c_p: # True = Call

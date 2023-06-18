@@ -1,4 +1,7 @@
 TODO:
+* re-implement Option object constructor to use calc_impvol with dividend; which will require using the new functions d_one() and d_two() in finmath.py
+=> should also go back through all functions in finmath.py related to option greeks which use d1 and d2 and change to d_one() and d_two() for consistency
+
 * create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view);
 
 Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
@@ -99,8 +102,3 @@ Routine to create .png files for various calculated surfaces for a specific tick
 HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file
 
 => /proto_view is essentially my testing ground for the view/React app code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view), try and make your own visuals yourself!
-
-<- <b>rk4.py</b> ->
-
-TODO: Implmement Runge-Kutta 4 method to simulate the soltion of the Black-Scholes P.D.E specifically using theta's derivation from original formula;
-You end up with the I.V.P; theta = dV/dt = f(t,v) where V(t0) = V0 (eta, current contract value); take step-size h and n iterations to advance;
