@@ -65,22 +65,22 @@ S = Underlying Asset Price ($)
 K = Contract Strike Price ($)
 T = Time to Expiration (years)
 q = Underlying Dividend Yield (%)
-r = Effective Federal Funds Rate (%)
+R = Effective Federal Funds Rate (%)
 '''
-def d_one(IV,S,K,T,q,R):
-    return (log(S/K)+((R-q+(0.5*IV*IV))*T))/(IV*sqrt(T))
+def d_one(IV,S,K,T,Q,R):
+    return (log(S/K)+((R-Q+(0.5*IV*IV))*T))/(IV*sqrt(T))
 
 def d_two(d1,IV,T):
     return d1-(IV*sqrt(T))
 
-def BlackScholes(iv, c_p=True, S=100., K=100., T=1., q=0.0, R=0.01, logging=False):
+def BlackScholes(iv, c_p=True, S=100., K=100., T=1., Q=0.0, R=0.01, logging=False):
     try:
         d1 = (log(S/K)+(R+(iv*iv/2.0))*T)/(iv*sqrt(T))
         d2 = d1-(iv*sqrt(T))
         if c_p: # True = Call
-            return (S*exp(-1.0*q*T)*CND(d1))-(K*exp(-1.0*R*T)*CND(d2))
+            return (S*exp(-1.0*Q*T)*CND(d1))-(K*exp(-1.0*R*T)*CND(d2))
         else:   # False = Put
-            return (K*exp(-1.0*R*T)*CND(-d2))-(S*exp(-1.0*q*T)*CND(-1.0*d1))
+            return (K*exp(-1.0*R*T)*CND(-d2))-(S*exp(-1.0*Q*T)*CND(-1.0*d1))
     except:
         if logging:
             print('BlackScholes(): Couldn''t calculate Option Contract Value; setting IV to 0.0')
