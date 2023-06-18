@@ -2,7 +2,7 @@ TODO:
 * re-implement Option object constructor to use calc_impvol with dividend; which will require using the new functions d_one() and d_two() in finmath.py
 => should also go back through all functions in finmath.py related to option greeks which use d1 and d2 and change to d_one() and d_two() for consistency
 
-* create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view);
+* create routine to upload generated .csv files to Google Firebase Cloud Storage for viewing through client code [option-chain-view](https://github.com/rolinmb/option-chain-view)
 
 Do not use this program for financial advice, I am not responsible for any financial decisions you may make from the output of this program. I wrote this code purely as a learning experience and am uploading it here soley for others to learn about the design of a system like this.
 
