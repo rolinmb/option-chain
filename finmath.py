@@ -48,7 +48,7 @@ def approxDeriv(data,t): # Finite-Difference Approximation of 1st Derivative (dU
 		else:
 			approx.append((data.iloc[i+1]-data.iloc[i-1])/2)
 	
-	return pd.Series(approx,index=rates.index.values[1:])
+	return approx
 
 def calc_histvol(close_data): # Standard Deviation of Underlying (or Hist. Vol)
     log_returns = log(close_data/close_data.shift())
@@ -68,10 +68,10 @@ T = Time to Expiration (years)
 q = Underlying Dividend Yield (%)
 r = Effective Federal Funds Rate (%)
 '''
-def BlackScholes(v, c_p=True, S=100., K=100., T=1., q=0.0, R=0.01, logging=False):
+def BlackScholes(iv, c_p=True, S=100., K=100., T=1., q=0.0, R=0.01, logging=False):
     try:
-        d1 = (log(S/K)+(R+(v*v/2.0))*T)/(v*sqrt(T))
-        d2 = d1-(v*sqrt(T))
+        d1 = (log(S/K)+(R+(iv*iv/2.0))*T)/(iv*sqrt(T))
+        d2 = d1-(iv*sqrt(T))
         if c_p: # True = Call
             return (S*exp(-1.0*q*T)*CND(d1))-(K*exp(-1.0*R*T)*CND(d2))
         else:   # False = Put

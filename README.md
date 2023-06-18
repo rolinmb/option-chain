@@ -100,6 +100,7 @@ HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via 
 
 => /proto_view is essentially my testing ground for the view/React app code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view), try and make your own visuals yourself!
 
-<- <b>/rk:</b> ->
+<- <b>rk4.py</b> ->
 
-TODO: Implmement Runge-Kutta 4 method to simulate the (partial) differential equation of Y
+TODO: Implmement Runge-Kutta 4 method to simulate the soltion of the Black-Scholes P.D.E specifically using theta's derivation from original formula;
+You end up with the I.V.P; theta = dV/dt = f(t,v) where V(t0) = V0 (eta, current contract value); take step-size h and n iterations to advance;
