@@ -99,6 +99,8 @@ Routine to create .png files for various calculated surfaces for a specific tick
 
 <- <b>/proto_view:</b> ->
 
-HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file
+HTML and JavaScript code to view the Time Series .csv data using Plotly.js (via CDN link); and also displays the OptionChain .csv as a table, and displays the relevant .png surface images for the ticker found in the OptionChain .csv file.
+
+proto_view works best in Google Chrome; Firefox often experiences WebGL issues when rendering so many Plotly.js 3d surface plots; hence the inclusion of ability to display images from /png_outputs/chains.
 
 => /proto_view is essentially my testing ground for the view/React app code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view), try and make your own visuals yourself!
