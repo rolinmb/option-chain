@@ -64,5 +64,12 @@ if __name__ == '__main__':
     # Call main_routine() for every ticker
     #for ticker in ETF_TICKERS:
     #for ticker in ['DIA','IWM','QQQ','SPY']:
-    main_routine(ticker, 'csv_outputs/ohlc/%s_adj_tseries.csv'%ticker, 'csv_outputs/chains/%s_chain.csv'%ticker, plotting=True, logging=False, showing=False)
+    main_routine( # TODO: test .csv builds before/after calc_impvol() changes
+        ticker,
+        'csv_outputs/ohlc/%s_adj_tseries.csv'%ticker,
+        'csv_outputs/chains/%s_chain.csv'%ticker,
+        plotting=False,
+        logging=False,
+        showing=False
+    )
     print(f'\nmain.py Total Execution Time: {str(round(time() - t_start, 2))} seconds')
