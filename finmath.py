@@ -47,7 +47,6 @@ def approxDeriv(data,t): # Finite-Difference Approximation of 1st Derivative (dU
 			approx.append((next-data.iloc[-2])/2)
 		else:
 			approx.append((data.iloc[i+1]-data.iloc[i-1])/2)
-	
 	return approx
 
 def calc_histvol(close_data): # Standard Deviation of Underlying (or Hist. Vol)
@@ -68,6 +67,12 @@ T = Time to Expiration (years)
 q = Underlying Dividend Yield (%)
 r = Effective Federal Funds Rate (%)
 '''
+def d_one(IV,S,K,T,q,R):
+    return (log(S/K)+((R-q+(0.5*IV*IV))*T))/(IV*sqrt(T))
+
+def d_two(d1,IV,T):
+    return d1-(IV*sqrt(T))
+
 def BlackScholes(iv, c_p=True, S=100., K=100., T=1., q=0.0, R=0.01, logging=False):
     try:
         d1 = (log(S/K)+(R+(iv*iv/2.0))*T)/(iv*sqrt(T))
