@@ -69,7 +69,7 @@ def dual_mesh_plot3D(ticker, method_name, call_data, put_data):
         rstride=3, cstride=3, cmap=cm.gnuplot2,
         linewidth=0, antialiased=False)
     p_ax.contour(pXX, pYY, pZZ)
-    fig.savefig('png_outputs/chains/%s_%s_dualsurface.png'%(ticker, method_name), dpi=100)
+    fig.savefig('png_outputs/%s_%s_dualsurface.png'%(ticker, method_name), dpi=100)
     plt.show()
     plt.close()
 
@@ -242,7 +242,7 @@ def buildChainGradientFields(chain, calc_method=getOptionIV, logging=True):
     p_ax.title.set_text('%s Put %s grad Vector Field'%(chain.getTicker(), funct_name))
     p_ax.quiver(pX_grid, pY_grid, pZ_grid, grad_pXX, grad_pYY, grad_pZZ, 
         colors=put_color, length=0.00025)
-    fig.savefig('png_outputs/chains/%s_%s_gradfield.png'%(chain.getTicker(), funct_name), dpi=100)
+    fig.savefig('png_outputs/%s_%s_gradfield.png'%(chain.getTicker(), funct_name), dpi=100)
     plt.show()
     plt.close()
 
@@ -295,7 +295,7 @@ def buildChainGradientPlots(chain, calc_method=getOptionUltima, logging=True):
     p_ax.plot_surface(pX_grid, pY_grid, pZ_grid,
         rstride=3, cstride=3, cmap=cm.gnuplot2,
         linewidth=0, antialiased=False)
-    fig.savefig('png_outputs/chains/%s_%s_gradsurface.png'%(chain.getTicker(), funct_name), dpi=100)
+    fig.savefig('png_outputs/%s_%s_gradsurface.png'%(chain.getTicker(), funct_name), dpi=100)
     plt.show()
     plt.close()
 
@@ -346,7 +346,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
     ax_gp.plot_surface(pgXX, pgYY, pgZZ,
         rstride=3, cstride=3, cmap=cm.gist_gray,
         linewidth=0, antialiased=False)
-    fig.savefig('png_outputs/chains/%s_%s_quadsurface.png'%(ticker, method_name), dpi=100)
+    fig.savefig('png_outputs/%s_%s_quadsurface.png'%(ticker, method_name), dpi=100) # change name here for tests
     if showing:
         plt.show()
         plt.close()

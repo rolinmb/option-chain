@@ -72,6 +72,7 @@ class Option:
                 s=self.underlying_quote,
                 k=self.strike, 
                 t=self.tte,
+                q=self.div_yield,
                 r=0.0525,
                 logging=logging
             )
@@ -81,6 +82,7 @@ class Option:
                 s=self.underlying_quote,
                 k=self.strike,
                 t=self.tte,
+                q=self.div_yield,
                 r=0.0525,
                 logging=logging
             )
@@ -104,6 +106,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.theta = calc_theta( # 1st deriv. option value w.r.t. TTE (dValue/dTTE)
@@ -121,6 +124,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.vanna = calc_vanna( # 2nd deriv. option value w.r.t. underlying and vol (dVega/dSpot or dDelta/dVol)
@@ -129,6 +133,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.charm = calc_charm( # 2nd deriv. option value w.r.t. underlying and TTE (dDelta/dTTE)
@@ -146,6 +151,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.veta = calc_veta( # 2nd deriv. option value w.r.t. vol and TTE (dVega/dTTE)
@@ -163,6 +169,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.zomma = calc_zomma( # 3rd deriv. option value w.r.t  underlying pricex2 and vol (dGamma/dVol)
@@ -171,6 +178,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             self.color = calc_color( # 3rd deriv. option value w.r.t  underlying pricex2 and TTE (dGamma/dTTE)
@@ -187,6 +195,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.0525
             )
             # Misc. greeks
@@ -196,6 +205,7 @@ class Option:
                 S=self.underlying_quote,
                 K=self.strike,
                 T=self.tte,
+                q=self.div_yield,
                 r=0.025
             ) 
             self.epsilon = calc_epsilon( # % change in option value per % change in div_yield

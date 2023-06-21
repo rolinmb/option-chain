@@ -75,14 +75,11 @@ def d_two(d1,IV,T):
 
 def BlackScholes(iv, c_p=True, S=100., K=100., T=1., Q=0.0, R=0.01, logging=False):
     try:
-        # TODO: does not use dividend yield q to find d1 and d2
-        d1 = (log(S/K)+(R+(iv*iv/2.0))*T)/(iv*sqrt(T))
-        #d1 = d_one(iv,S,K,T,Q,R)
-        d2 = d1-(iv*sqrt(T))
-        #d2 = d_two(d1,iv,T)
+        d1 = d_one(iv,S,K,T,Q,R)
+        d2 = d_two(d1,iv,T)
         if c_p: # True = Call
             return (S*exp(-1.0*Q*T)*CND(d1))-(K*exp(-1.0*R*T)*CND(d2))
-        else:   # False = Put
+        else:
             return (K*exp(-1.0*R*T)*CND(-d2))-(S*exp(-1.0*Q*T)*CND(-1.0*d1))
     except:
         if logging:
@@ -90,8 +87,8 @@ def BlackScholes(iv, c_p=True, S=100., K=100., T=1., Q=0.0, R=0.01, logging=Fals
         return 0.0
     
 # Find zeros to the equation: f(x) = B.S.(x) - actual_contract_price
-def calc_impvol(V=5., cp=True, s=100., k=100., t=1., r=0.01, logging=True):
-    f = lambda x: BlackScholes(x, cp, s, k, t, r, logging=logging) - V
+def calc_impvol(V=5., cp=True, s=100., k=100., t=1., q=0.0, r=0.01, logging=True):
+    f = lambda x: BlackScholes(x, cp, s, k, t, q, r, logging=logging) - V
     try:
         return optimize.brentq(f, 0., 5.)
     except:
@@ -100,41 +97,34 @@ def calc_impvol(V=5., cp=True, s=100., k=100., t=1., r=0.01, logging=True):
         return 0.0
 # TODO: need to use d_one() and d_two() one it's verified calc_impvol works with dividend yield q
 def calc_delta(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
+    d1 = d_one(iv,S,K,T,q,r)
     if c_p:  # True = call
         return exp(-1.0*q*T)*CND(d1)
-    else:    # False = put
+    else:
         return -1.0*exp(-1.0*q*T)*CND(-d1)
 
 def calc_elasticity(delta, V=0.01, S=100.):
     return delta*(S/V)
 
-def calc_vega(iv, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_vega(iv, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     vega_ret = K*PDF(d2)*sqrt(T)
     return 0.0 if isnan(vega_ret) else vega_ret
 
 def calc_theta(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     if c_p:  # True = call
         c_ret = (((-1.0*exp(-1.0*q*T))*((S*PDF(d1)*iv)/(2*sqrt(T)))) - (r*K*exp(-1.0*r*T)*CND(d2))) + (q*S*exp(-1.0*q*T)*CND(d1))
         return 0.0 if isnan(c_ret) else c_ret
-    else:    # False = put
+    else:
         p_ret = (((-1.0*exp(-1.0*q*T))*((S*PDF(d1)*iv)/(2*sqrt(T)))) + (r*K*exp(-1.0*r*T)*CND(-1.0*d2))) - (q*S*exp(-1.0*q*T)*CND(-1.0*d1))
         return 0.0 if isnan(p_ret) else p_ret
 
-def calc_rho(iv, c_p=True, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_rho(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     if c_p:
         c_ret = K*T*exp(-1.0*r*T)*CND(d2)
         return 0.0 if isnan(c_ret) else c_ret 
@@ -143,8 +133,7 @@ def calc_rho(iv, c_p=True, S=100., K=100., T=1., r=0.01):
         return 0.0 if isnan(p_ret) else p_ret
 
 def calc_epsilon(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
+    d1 = d_one(iv,S,K,T,q,r)
     if c_p:
         c_ret = -1.0*S*T*exp(-1.0*q*T)*CND(d1)
         return 0.0 if isnan(c_ret) else c_ret
@@ -152,25 +141,20 @@ def calc_epsilon(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
         p_ret = S*T*exp(-1.0*r*T)*CND(-1.0*d1)
         return 0.0 if isnan(p_ret) else p_ret
 
-def calc_gamma(iv, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_gamma(iv, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     gam_ret = K*exp(-1.0*r*T)*(PDF(d2)/(S*S*iv*sqrt(T)))
     return 0.0 if isnan(gam_ret) else gam_ret
 
-def calc_vanna(iv, vega, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
+def calc_vanna(iv, vega, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
     van_ret = (vega/S)*(1.0-(d1/(iv*sqrt(T))))
     return 0.0 if isnan(van_ret) else van_ret
 
 def calc_charm(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     if c_p: # True = call
         c_ret = (q*exp(-1.0*q*T)*CND(d1)) - ((exp(-1.0*q*T)*PDF(d1))*(((2.0*(r-q)*T)-(d2*iv*sqrt(T)))/(2.0*T*iv*sqrt(T))))
         return 0.0 if isnan(c_ret) else c_ret
@@ -178,52 +162,41 @@ def calc_charm(iv, c_p=True, S=100., K=100., T=1., q=0.0, r=0.01):
         p_ret = (-1.0*q*exp(-1.0*q*T)*CND(-1.0*d1)) - ((exp(-1.0*q*T)*PDF(d1))*(((2.0*(r-q)*T)-(d2*iv*sqrt(T)))/(2.0*T*iv*sqrt(T))))
         return 0.0 if isnan(p_ret) else p_ret
 
-def calc_vomma(iv, vega, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_vomma(iv, vega, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     vom_ret = (vega*d1*d2)/iv
     return 0.0 if isnan(vom_ret) else vom_ret
 
 def calc_veta(iv, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     factor = -1.0*S*exp(-1.0*q*T)*PDF(d1)*sqrt(T)
     veta_ret = factor*(q+(((r-q)*d1)/(iv*sqrt(T)))-((1.0+(d1*d2))/(2.0*T)))
     return 0.0 if isnan(veta_ret) else veta_ret
 
-def calc_speed(gamma, iv, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
+def calc_speed(gamma, iv, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
     speed_ret = (-1.0*gamma/S)*((d1/(iv*sqrt(T)))+1.0)
     return 0.0 if isnan(speed_ret) else speed_ret
 
-def calc_zomma(gamma, iv, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_zomma(gamma, iv, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     zom_ret = gamma*(((d1*d2)-1.0)/iv)
     return 0.0 if isnan(zom_ret) else zom_ret
 
 def calc_color(iv, S=100., K=100., T=1., q=0.0, r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     factor1 = -1.0*exp(-1.0*q*T)*PDF(d1)/(2.0*S*T*iv*sqrt(T))
     factor2 = (((2.0*(r-q)*T)-(d2*iv*sqrt(T)))/(iv*sqrt(T)))*d1
     clr_ret = factor1*((2.0*q*T)+1.0+factor2)
     return 0.0 if isnan(clr_ret) else clr_ret
 
-def calc_ultima(iv, vega, S=100., K=100., T=1., r=0.01):
-    d1 = (log(S/K)+(r+(iv*iv/2.0))*T)/(iv*sqrt(T))
-    d2 = d1-(iv*sqrt(T))
-    #d1 = d_one(iv,S,K,T,Q,R)
-    #d2 = d_two(d1,iv,T)
+def calc_ultima(iv, vega, S=100., K=100., T=1., q=0.0, r=0.01):
+    d1 = d_one(iv,S,K,T,q,r)
+    d2 = d_two(d1,iv,T)
     factor = (-1.0*vega)/(iv**2)
     ult_ret = factor*(((d1*d2)*(1.0-(d1*d2)))+(d1**2)+(d2**2))
     return 0.0 if isnan(ult_ret) else ult_ret

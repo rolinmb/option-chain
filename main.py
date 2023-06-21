@@ -13,6 +13,7 @@ funct_list_0 = [
 
 # funct_list_1 = [getOptionIV, getOptionUltima, getOptionTheoDif]
 # funct_list_2 = [getOptionIV, getOptionTheta, getOptionVomma, getOptionVeta, getOptionUltima]
+# funct_list_3 = [getOptionIV]
 
 def main_routine(ticker, ts_csv, chain_csv, plotting=True, logging=False, showing=False):
         # if not os.path.isfile(ts_csv): # Create ts_csv if doesn't already exist;
@@ -68,7 +69,7 @@ if __name__ == '__main__':
         ticker,
         'csv_outputs/ohlc/%s_adj_tseries.csv'%ticker,
         'csv_outputs/chains/%s_chain.csv'%ticker,
-        plotting=False,
+        plotting=True,
         logging=False,
         showing=False
     )
