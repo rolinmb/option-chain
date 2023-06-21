@@ -106,23 +106,22 @@ proto_view works best in Google Chrome; Firefox often experiences WebGL issues w
 => /proto_view is essentially my testing ground for the view/React app code located at my other repo [option-chain-view](https://github.com/rolinmb/option-chain-view), try and make your own visuals yourself!
 
 <b>Demo output for 3M ($MMM) using my source:</b>
-<ul>
-<li>![](demo_pngs/MMM_Charm_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Color_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Delta_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Elasticity_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Epsilon_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Gamma_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_IV_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_MidIV_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Rho_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Speed_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_TheoDif_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Theta_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Ultima_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Vanna_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Vega_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Veta_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Vomma_quadsurface_new4.png)</li>
-<li>![](demo_pngs/MMM_Zomma_quadsurface_new4.png)</li>
-</ul>
+
+![](demo_pngs/MMM_Charm_quadsurface_new4.png)
+![](demo_pngs/MMM_Color_quadsurface_new4.png)
+![](demo_pngs/MMM_Delta_quadsurface_new4.png)
+![](demo_pngs/MMM_Elasticity_quadsurface_new4.png)
+![](demo_pngs/MMM_Epsilon_quadsurface_new4.png)
+![](demo_pngs/MMM_Gamma_quadsurface_new4.png)
+![](demo_pngs/MMM_IV_quadsurface_new4.png)
+![](demo_pngs/MMM_MidIV_quadsurface_new4.png)
+![](demo_pngs/MMM_Rho_quadsurface_new4.png)
+![](demo_pngs/MMM_Speed_quadsurface_new4.png)
+![](demo_pngs/MMM_TheoDif_quadsurface_new4.png)
+![](demo_pngs/MMM_Theta_quadsurface_new4.png)
+![](demo_pngs/MMM_Ultima_quadsurface_new4.png)
+![](demo_pngs/MMM_Vanna_quadsurface_new4.png)
+![](demo_pngs/MMM_Vega_quadsurface_new4.png)
+![](demo_pngs/MMM_Veta_quadsurface_new4.png)
+![](demo_pngs/MMM_Vomma_quadsurface_new4.png)
+![](demo_pngs/MMM_Zomma_quadsurface_new4.png)
