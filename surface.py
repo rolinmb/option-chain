@@ -346,7 +346,7 @@ def quad_mesh_plot_3d(ticker, method_name, c_data, p_data, cgrad_mdata, pgrad_md
     ax_gp.plot_surface(pgXX, pgYY, pgZZ,
         rstride=3, cstride=3, cmap=cm.gist_gray,
         linewidth=0, antialiased=False)
-    fig.savefig('png_outputs/%s_%s_quadsurface.png'%(ticker, method_name), dpi=100) # change name here for tests
+    fig.savefig('png_outputs/%s_%s_quadsurface.png'%(ticker, method_name), dpi=100)
     if showing:
         plt.show()
         plt.close()
